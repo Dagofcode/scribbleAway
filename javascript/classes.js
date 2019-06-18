@@ -17,7 +17,7 @@ class Player {
   }
   update() {
     this.draw();
-
+    console.log(this.onGround);
     if (this.onGround === false) {
       this.yv += this.gravity;
       this.yv *= this.friction;
@@ -49,6 +49,7 @@ class Player {
       this.y + this.height > platform.y
     ) {
       this.jumping = false;
+      //console.log("i am returning true;");
       return true;
     }
 
@@ -61,6 +62,7 @@ class Player {
         this.x + this.width > pen.previousX[i] &&
         this.y + this.height > pen.previousY[i]
       ) {
+        this.jumping = false;
         return true;
       }
     }

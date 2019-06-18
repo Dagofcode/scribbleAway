@@ -16,6 +16,7 @@ function checkCollisionPlatform() {
     if (stick.checkCollisionPlatform(platforms[i])) {
       //console.log("touching platforms");
       stick.onGround = true;
+      //console.log(stick.onGround);
     } else {
       stick.onGround = false;
     }
@@ -25,8 +26,6 @@ function checkCollisionPlatform() {
 function checkCollisionPen() {
   if (stick.checkCollisionPen(pen)) {
     stick.onGround = true;
-  } else {
-    stick.onGround = false;
   }
 }
 
