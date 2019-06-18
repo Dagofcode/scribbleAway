@@ -6,18 +6,28 @@ function generatePlatforms() {
 }
 
 function drawPlatforms() {
-  if (frames % 200 === 0) {
-    console.log("generating platforms");
-    generatePlatforms();
-  }
   platforms.map(platform => {
     platform.draw();
   });
 }
 
-function checkCollision() {
-  platforms.map(platform => {
-    stick.checkCollision(platform);
-  });
+function checkCollisionPlatform() {
+  for (i = 0; i < platforms.length; i++) {
+    if (stick.checkCollisionPlatform(platforms[i])) {
+      //console.log("touching platforms");
+      stick.onGround = true;
+    } else {
+      stick.onGround = false;
+    }
+  }
 }
+
+function checkCollisionPen() {
+  if (stick.checkCollisionPen(pen)) {
+    stick.onGround = true;
+  } else {
+    stick.onGround = false;
+  }
+}
+
 //canvas.height - this.y;

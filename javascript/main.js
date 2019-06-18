@@ -3,9 +3,11 @@ function update() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   pen.draw();
-  stick.draw();
-  checkCollision();
+  //pen2.draw();
+  stick.update();
   drawPlatforms();
+  checkCollisionPlatform();
+  checkCollisionPen();
   frames++;
 }
 //this function will get called once the user presses the button
@@ -14,3 +16,15 @@ function startGame() {
 }
 
 startGame();
+
+// ctx.beginPath();
+// ctx.lineWidth = 10;
+// ctx.moveTo(0, 0);
+// ctx.lineTo(100, 100);
+// ctx.stroke();
+
+// ctx.beginPath();
+// ctx.lineWidth = 10;
+// ctx.moveTo(200, 200);
+// ctx.lineTo(300, 300);
+// ctx.stroke();

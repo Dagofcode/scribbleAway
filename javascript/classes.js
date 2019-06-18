@@ -3,38 +3,81 @@ class Player {
     this.width = 30;
     this.height = 50;
     this.x = x;
-    this.y = 300;
-    //this.gravity = 5;
+    this.y = y;
+    this.onGround = false;
+    this.jumping = false;
+    this.yv = 0;
+    this.xv = 0;
+    this.friction = 0.9;
+    this.gravity = 1.5;
   }
   draw() {
     ctx.fillStyle = "black";
     ctx.fillRect(this.x, this.y, this.width, this.height);
-    this.gravitySpeed += this.gravity;
-    this.y += 5;
   }
-  checkCollision(platform) {
+  update() {
+    this.draw();
+
+    if (this.onGround === false) {
+      this.yv += this.gravity;
+      this.yv *= this.friction;
+    } else {
+      this.yv = -this.yv * this.friction;
+    }
+    this.y += this.yv;
+    this.x += this.xv;
+    this.xv *= this.friction;
+  }
+  jump() {
+    if (this.jumping === false) {
+      this.yv -= 30;
+      this.jumping = true;
+      this.onGround = false;
+    }
+  }
+  moveRight() {
+    //if (this.xv < this.speed) {
+    this.xv += 5;
+  }
+  moveLeft() {
+    this.xv -= 5;
+  }
+  checkCollisionPlatform(platform) {
     if (
       this.x < platform.x + platform.width &&
       this.x + this.width > platform.x &&
-      this.y < platform.y + platform.height &&
       this.y + this.height > platform.y
     ) {
-      this.y = platform.y - this.height;
+      this.jumping = false;
+      return true;
     }
+
+    return false;
+  }
+  checkCollisionPen(pen) {
+    for (i = 0; i < pen.previousX.length; i++) {
+      if (
+        this.x < pen.previousX[i] + pen.width &&
+        this.x + this.width > pen.previousX[i] &&
+        this.y + this.height > pen.previousY[i]
+      ) {
+        return true;
+      }
+    }
+    return false;
   }
 }
 class Platform {
   constructor(x, y, height) {
     this.x = x;
     this.y = y; // canvas.height / 2 + 100;
-    this.width = canvas.width;
+    this.width = 300;
     this.height = height; //canvas.height - this.y;
     this.color = "green";
   }
   draw() {
     ctx.fillStyle = this.color;
     ctx.fillRect(this.x, this.y, this.width, this.height);
-    this.x -= 5;
   }
 }
 class Pen {
@@ -44,7 +87,9 @@ class Pen {
     this.width = 10;
     this.type = "round";
     this.painting = false;
-    this.previous = [];
+    this.ink = 100;
+    this.previousX = [];
+    this.previousY = [];
   }
 
   draw() {
@@ -52,23 +97,33 @@ class Pen {
     if (!this.painting) return;
     ctx.lineWidth = this.width;
     ctx.lineCap = this.type;
-    this.previous.push(this.y);
+    this.previousX.push(this.x);
+    this.previousY.push(this.y);
     ctx.lineTo(this.x, this.y);
-    ctx.stroke();
-  }
-  updatePen(e) {
-    this.x = e.clientX;
-    this.y = e.clientY;
+    //ctx.stroke();
   }
   startPosition() {
-    ctx.beginPath();
+    // ctx.beginPath();
+    console.log(this.x, "", this.y);
+    ctx.moveTo(this.x, this.y);
     this.painting = true;
   }
   finishedPosition() {
+    //ctx.beginPath();
     this.painting = false;
-    this.x = 10;
-    this.y = 10;
     //ctx.closePath();
     //ctx.beginPath();
   }
 }
+
+// ctx.beginPath();
+// ctx.lineWidth = 10;
+// ctx.moveTo(0, 0);
+// ctx.lineTo(100, 100);
+// ctx.stroke();
+
+// ctx.beginPath();
+// ctx.lineWidth = 10;
+// ctx.moveTo(200, 200);
+// ctx.lineTo(300, 300);
+// ctx.stroke();
