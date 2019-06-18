@@ -7,8 +7,9 @@ class Player {
     this.onGround = false;
     this.jumping = false;
     this.yv = 0;
-    this.xv = 0;
+    this.xv = 0.5;
     this.friction = 0.9;
+    this.frictionX = 0.2;
     this.gravity = 1.5;
   }
   draw() {
@@ -17,30 +18,37 @@ class Player {
   }
   update() {
     this.draw();
-    console.log(this.onGround);
     if (this.onGround === false) {
       this.yv += this.gravity;
       this.yv *= this.friction;
     } else {
       this.yv = -this.yv * this.friction;
+      this.jumping = true;
+      this.onGround = true;
     }
     this.y += this.yv;
     this.x += this.xv;
-    this.xv *= this.friction;
+    //this.xv *= this.frictionX;
   }
   jump() {
     if (this.jumping === false) {
-      this.yv -= 30;
+      this.yv -= 20;
       this.jumping = true;
       this.onGround = false;
     }
   }
   moveRight() {
     //if (this.xv < this.speed) {
-    this.xv += 5;
+    this.xv += 2;
   }
   moveLeft() {
     this.xv -= 5;
+  }
+  moveUp() {
+    this.yv -= 5;
+  }
+  moveDown() {
+    this.yv += 5;
   }
   checkCollisionPlatform(platform) {
     if (
@@ -49,24 +57,81 @@ class Player {
       this.y + this.height > platform.y
     ) {
       this.jumping = false;
-      //console.log("i am returning true;");
       return true;
     }
 
     return false;
   }
+
+  sqr(x) {
+    return x * x;
+  }
+  dist2(v, w) {
+    return this.sqr(v.x - w.x) + this.sqr(v.y - w.y);
+  }
+  distToSegmentSquared(p, v, w) {
+    var l2 = this.dist2(v, w);
+    if (l2 == 0) return this.dist2(p, v);
+    var t = ((p.x - v.x) * (w.x - v.x) + (p.y - v.y) * (w.y - v.y)) / l2;
+    t = Math.max(0, Math.min(1, t));
+    return this.dist2(p, {
+      x: v.x + t * (w.x - v.x),
+      y: v.y + t * (w.y - v.y)
+    });
+  }
+  distToSegment(p, v, w) {
+    return Math.sqrt(this.distToSegmentSquared(p, v, w));
+  }
   checkCollisionPen(pen) {
+    let topLeft = {
+      x: this.x,
+      y: this.y
+    };
+    let topRight = {
+      x: this.x + this.width,
+      y: this.y
+    };
+    let botLeft = {
+      x: this.x,
+      y: this.y + this.height
+    };
+    let botRight = {
+      x: this.x + this.width,
+      y: this.y + this.height
+    };
+
+    let point = {};
+    let top, right, bot, left;
+
     for (i = 0; i < pen.previousX.length; i++) {
-      if (
-        this.x < pen.previousX[i] + pen.width &&
-        this.x + this.width > pen.previousX[i] &&
-        this.y + this.height > pen.previousY[i]
-      ) {
+      point.x = pen.previousX[i];
+      point.y = pen.previousY[i];
+
+      top = this.distToSegment(point, topLeft, topRight);
+      right = this.distToSegment(point, topRight, botRight);
+      left = this.distToSegment(point, topLeft, botLeft);
+      bot = this.distToSegment(point, botLeft, botRight);
+
+      if (top < 10) {
+        this.yv *= -1;
+      }
+      if (right < 5) {
+        //console.log(right);
+        this.x -= 0.5;
+        this.xv *= -1;
+      }
+      if (left < 5) {
+        //console.log(left);
+        this.x += 0.5;
+
+        this.xv *= -1;
+      }
+      if (bot < 5) {
+        this.onGround = true;
         this.jumping = false;
-        return true;
+        this.y -= 0.5;
       }
     }
-    return false;
   }
 }
 class Platform {
@@ -89,43 +154,30 @@ class Pen {
     this.width = 10;
     this.type = "round";
     this.painting = false;
-    this.ink = 100;
+    this.ink = 0;
     this.previousX = [];
     this.previousY = [];
   }
 
   draw() {
     ctx.stroke();
+    ctx.strokeStyle = "red";
     if (!this.painting) return;
     ctx.lineWidth = this.width;
     ctx.lineCap = this.type;
     this.previousX.push(this.x);
     this.previousY.push(this.y);
     ctx.lineTo(this.x, this.y);
-    //ctx.stroke();
+    this.ink++;
   }
   startPosition() {
-    // ctx.beginPath();
-    console.log(this.x, "", this.y);
+    this.previousX.push(this.x);
+    this.previousY.push(this.y);
     ctx.moveTo(this.x, this.y);
     this.painting = true;
   }
   finishedPosition() {
-    //ctx.beginPath();
     this.painting = false;
-    //ctx.closePath();
-    //ctx.beginPath();
+    console.log(this.x, this.y);
   }
 }
-
-// ctx.beginPath();
-// ctx.lineWidth = 10;
-// ctx.moveTo(0, 0);
-// ctx.lineTo(100, 100);
-// ctx.stroke();
-
-// ctx.beginPath();
-// ctx.lineWidth = 10;
-// ctx.moveTo(200, 200);
-// ctx.lineTo(300, 300);
-// ctx.stroke();

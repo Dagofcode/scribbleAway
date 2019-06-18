@@ -4,15 +4,18 @@ function update() {
 
   pen.draw();
   //pen2.draw();
+  winCondition();
+
   stick.update();
   drawPlatforms();
   checkCollisionPlatform();
   checkCollisionPen();
+  addInk();
   frames++;
 }
 //this function will get called once the user presses the button
 function startGame() {
-  setInterval(update, 1000 / 60);
+  interval = setInterval(update, 1000 / 60);
 }
 
 startGame();
