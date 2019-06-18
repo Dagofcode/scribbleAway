@@ -1,6 +1,22 @@
+class Board {
+  constructor() {
+    this.x = 0;
+    this.y = 0;
+    this.width = canvas.width;
+    this.height = canvas.height;
+    this.img = new Image();
+    this.img.src = "images/background.jpg";
+    this.img.onload = () => {
+      this.draw();
+    };
+  }
+  draw() {
+    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+  }
+}
 class Player {
-  constructor(x, y) {
-    this.width = 30;
+  constructor(x, y, img) {
+    this.width = 50;
     this.height = 50;
     this.x = x;
     this.y = y;
@@ -11,10 +27,13 @@ class Player {
     this.friction = 0.9;
     this.frictionX = 0.2;
     this.gravity = 1.5;
+    this.img = new Image();
+    this.img.src = "images/doodlebob.png";
+    this.img2 = "images/doodlebobAttack.png";
   }
   draw() {
     ctx.fillStyle = "black";
-    ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
   update() {
     this.draw();
@@ -28,7 +47,6 @@ class Player {
     }
     this.y += this.yv;
     this.x += this.xv;
-    //this.xv *= this.frictionX;
   }
   jump() {
     if (this.jumping === false) {
@@ -38,7 +56,6 @@ class Player {
     }
   }
   moveRight() {
-    //if (this.xv < this.speed) {
     this.xv += 2;
   }
   moveLeft() {
@@ -83,6 +100,9 @@ class Player {
     return Math.sqrt(this.distToSegmentSquared(p, v, w));
   }
   checkCollisionPen(pen) {
+    //i get all the four points of my player
+    //to calculate the line distance from the points of the pen drawings
+
     let topLeft = {
       x: this.x,
       y: this.y
@@ -107,6 +127,7 @@ class Player {
       point.x = pen.previousX[i];
       point.y = pen.previousY[i];
 
+      //direction of the lines
       top = this.distToSegment(point, topLeft, topRight);
       right = this.distToSegment(point, topRight, botRight);
       left = this.distToSegment(point, topLeft, botLeft);
@@ -116,12 +137,10 @@ class Player {
         this.yv *= -1;
       }
       if (right < 5) {
-        //console.log(right);
         this.x -= 0.5;
         this.xv *= -1;
       }
       if (left < 5) {
-        //console.log(left);
         this.x += 0.5;
 
         this.xv *= -1;
@@ -147,6 +166,7 @@ class Platform {
     ctx.fillRect(this.x, this.y, this.width, this.height);
   }
 }
+//class to draw on the canvas
 class Pen {
   constructor() {
     this.x = 0;

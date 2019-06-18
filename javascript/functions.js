@@ -34,6 +34,7 @@ function winCondition() {
   let x = canvas.width - 125;
   let y = 25;
   let w = 100;
+  ctx.drawImage(door, x, y, w, 100);
   //   ctx.beginPath();
   //   ctx.rect(x, y, w, w);
   //   ctx.fillStyle = "#8ED6FF";

@@ -1,9 +1,9 @@
 //function that updates everything in the game
 function update() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  //background.draw();
 
   pen.draw();
-  //pen2.draw();
   winCondition();
 
   stick.update();
@@ -19,15 +19,3 @@ function startGame() {
 }
 
 startGame();
-
-// ctx.beginPath();
-// ctx.lineWidth = 10;
-// ctx.moveTo(0, 0);
-// ctx.lineTo(100, 100);
-// ctx.stroke();
-
-// ctx.beginPath();
-// ctx.lineWidth = 10;
-// ctx.moveTo(200, 200);
-// ctx.lineTo(300, 300);
-// ctx.stroke();
