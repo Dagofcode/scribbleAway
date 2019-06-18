@@ -174,21 +174,31 @@ class Pen {
     this.width = 10;
     this.type = "round";
     this.painting = false;
-    this.ink = 0;
+    this.ink = 2000;
     this.previousX = [];
     this.previousY = [];
+    this.color = "red";
   }
 
   draw() {
     ctx.stroke();
-    ctx.strokeStyle = "red";
     if (!this.painting) return;
     ctx.lineWidth = this.width;
     ctx.lineCap = this.type;
     this.previousX.push(this.x);
     this.previousY.push(this.y);
     ctx.lineTo(this.x, this.y);
-    this.ink++;
+    this.ink--;
+  }
+  drawInk() {
+    ctx.stroke();
+    ctx.fillStyle = this.color;
+    ctx.strokeStyle = this.color;
+
+    ctx.fillRect(20, 20, this.ink / 10, 50);
+    ctx.fillStyle = "green";
+    ctx.font = "30px Arial";
+    ctx.fillText(`Your Ink: ${pen.ink}`, 20, 50);
   }
   startPosition() {
     this.previousX.push(this.x);
@@ -198,6 +208,5 @@ class Pen {
   }
   finishedPosition() {
     this.painting = false;
-    console.log(this.x, this.y);
   }
 }

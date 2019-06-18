@@ -4,13 +4,13 @@ function update() {
   //background.draw();
 
   pen.draw();
+  pen.drawInk();
   winCondition();
 
   stick.update();
   drawPlatforms();
   checkCollisionPlatform();
   checkCollisionPen();
-  addInk();
   frames++;
 }
 //this function will get called once the user presses the button

@@ -11,6 +11,12 @@ addEventListener("keydown", e => {
     stick.jump();
   } else if (e.keyCode === 39) {
     stick.moveRight();
+  } else if (e.keyCode === 82) {
+    pen.color = "red";
+  } else if (e.keyCode === 66) {
+    pen.color = "blue";
+  } else if (e.keyCode === 89) {
+    pen.color = "yellow";
   }
 });
 
