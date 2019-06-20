@@ -31,5 +31,5 @@ startButton.addEventListener("click", function() {
 });
 
 instructions.addEventListener("click", function() {
-  document.querySelector(".instructions").style.alignItems = "flex-end";
+  document.querySelector(".instructions_img").style.visibility = "visible";
 });
