@@ -13,16 +13,16 @@ function drawPlatforms() {
 
 function checkCollisionPlatform() {
   for (i = 0; i < platforms.length; i++) {
-    if (stick.checkCollisionPlatform(platforms[i])) {
-      stick.onGround = true;
+    if (player.checkCollisionPlatform(platforms[i])) {
+      player.onGround = true;
     } else {
-      stick.onGround = false;
+      player.onGround = false;
     }
   }
 }
 
 function checkCollisionPen() {
-  stick.checkCollisionPen(pen);
+  player.checkCollisionPen(pen);
 }
 
 function winCondition() {
@@ -32,19 +32,26 @@ function winCondition() {
   ctx.drawImage(door, x, y, w, 100);
 
   if (
-    stick.x > x &&
-    stick.x + stick.width < x + w &&
-    stick.y > y &&
-    stick.y + stick.height < y + w
+    player.x > x &&
+    player.x + player.width < x + w &&
+    player.y > y &&
+    player.y + player.height < y + w
   ) {
     ctx.font = "60px Arial";
     ctx.fillText(`YOU WON!`, canvas.width / 2, canvas.height / 2);
     clearInterval(interval);
-  } else if (stick.y > canvas.height) {
+  } else if (player.y > canvas.height || pen.ink < 0) {
     ctx.fillText(`YOU LOST!`, canvas.width / 2, canvas.height / 2);
     clearInterval(interval);
   }
 }
-function changeColors() {
-  this.color = "blue";
+function resetGame() {
+  pen = undefined;
+  pen = new Pen("blue");
+}
+function changePlayerColor() {
+  let rnd = Math.floor(Math.random() * 2);
+  if (frames % 300 === 0) {
+    player.color = colors[rnd];
+  }
 }

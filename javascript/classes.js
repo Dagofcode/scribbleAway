@@ -5,12 +5,30 @@ class Board {
     this.width = canvas.width;
     this.height = canvas.height;
     this.img = new Image();
-    this.img.src = "images/background.jpg";
+    this.img2 = new Image();
+    this.img3 = new Image();
+    this.img.src = "images/background4.png";
+    this.img2.src = "images/background5.png";
+    this.img3.src = "images/background4.png";
+
     this.img.onload = () => {
       this.draw();
     };
   }
   draw() {
+    if (frames % 12 === 0)
+      if (animateHelper === 0) {
+        this.img;
+      } else if (animateHelper === 1) {
+        this.img = this.img2;
+      } else if (animateHelper === 2) {
+        this.img = this.img3;
+      }
+    if (animateHelper < 4) {
+      animateHelper++;
+    } else {
+      animateHelper = 0;
+    }
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
 }
@@ -27,12 +45,13 @@ class Player {
     this.friction = 0.9;
     this.frictionX = 0.2;
     this.gravity = 1.5;
+    this.color = "black";
     this.img = new Image();
-    this.img.src = "images/doodlebob.png";
+    this.img.src = "images/stick.png";
     this.img2 = "images/doodlebobAttack.png";
   }
   draw() {
-    ctx.fillStyle = "black";
+    // ctx.fillStyle = "black";
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
   update() {
@@ -102,7 +121,6 @@ class Player {
   checkCollisionPen(pen) {
     //i get all the four points of my player
     //to calculate the line distance from the points of the pen drawings
-
     let topLeft = {
       x: this.x,
       y: this.y
@@ -168,7 +186,7 @@ class Platform {
 }
 //class to draw on the canvas
 class Pen {
-  constructor() {
+  constructor(color) {
     this.x = 0;
     this.y = 0;
     this.width = 10;
@@ -177,17 +195,30 @@ class Pen {
     this.ink = 2000;
     this.previousX = [];
     this.previousY = [];
-    this.color = "red";
+    this.isPicked = false;
+    this.color = color;
   }
-
+  drawPrevious() {
+    ctx.beginPath();
+    for (let i = 0; i < this.previousX.length; i++) {
+      ctx.lineTo(this.previousX[i], this.previousY[i]);
+      //ctx.stroke();
+    }
+  }
   draw() {
     ctx.stroke();
+    ctx.strokeStyle = this.color;
+
     if (!this.painting) return;
     ctx.lineWidth = this.width;
     ctx.lineCap = this.type;
+
     this.previousX.push(this.x);
     this.previousY.push(this.y);
+
     ctx.lineTo(this.x, this.y);
+    ctx.stroke();
+
     this.ink--;
   }
   drawInk() {
@@ -198,12 +229,13 @@ class Pen {
     ctx.fillRect(20, 20, this.ink / 10, 50);
     ctx.fillStyle = "green";
     ctx.font = "30px Arial";
-    ctx.fillText(`Your Ink: ${pen.ink}`, 20, 50);
+    ctx.fillText(`Your Ink: ${this.ink}`, 20, 50);
   }
   startPosition() {
+    ctx.moveTo(this.x, this.y);
+
     this.previousX.push(this.x);
     this.previousY.push(this.y);
-    ctx.moveTo(this.x, this.y);
     this.painting = true;
   }
   finishedPosition() {

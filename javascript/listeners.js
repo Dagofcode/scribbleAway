@@ -1,27 +1,25 @@
 addEventListener("mousedown", () => pen.startPosition());
 addEventListener("mouseup", () => pen.finishedPosition());
 addEventListener("mousemove", () => {
-  pen.x = event.clientX;
-  pen.y = event.clientY;
+  let rect = canvas.getBoundingClientRect();
+
+  pen.x = event.clientX - rect.left;
+  pen.y = event.clientY - rect.top;
 });
 addEventListener("keydown", e => {
   if (e.keyCode === 37) {
-    stick.moveLeft();
+    player.moveLeft();
   } else if (e.keyCode === 32) {
-    stick.jump();
+    player.jump();
   } else if (e.keyCode === 39) {
-    stick.moveRight();
+    player.moveRight();
   } else if (e.keyCode === 82) {
     pen.color = "red";
   } else if (e.keyCode === 66) {
     pen.color = "blue";
   } else if (e.keyCode === 89) {
     pen.color = "yellow";
+  } else if (e.keyCode === 13) {
+    resetGame();
   }
 });
-
-//code that will use later
-/*  clearInterval(interval)
-      interval = false
-      
-*/

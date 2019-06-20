@@ -1,16 +1,22 @@
 //function that updates everything in the game
 function update() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  //background.draw();
+  background.draw();
+
+  //drawPens();
 
   pen.draw();
   pen.drawInk();
-  winCondition();
+  //blackPen.drawInk();
+  //redPen.drawInk();
 
-  stick.update();
+  player.update();
   drawPlatforms();
   checkCollisionPlatform();
   checkCollisionPen();
+  changePlayerColor();
+  winCondition();
+
   frames++;
 }
 //this function will get called once the user presses the button
