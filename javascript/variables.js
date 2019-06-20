@@ -3,6 +3,7 @@ ctx = canvas.getContext("2d");
 
 //button variables
 let startButton = document.querySelector(".start");
+let instructions = document.querySelector(".instructions");
 
 // variables
 let x = 20;

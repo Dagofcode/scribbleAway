@@ -8,11 +8,11 @@ addEventListener("mousemove", () => {
 });
 addEventListener("keydown", e => {
   if (e.keyCode === 37) {
-    player.moveLeft();
+    //player.moveLeft();
   } else if (e.keyCode === 32) {
-    player.jump();
+    // player.jump();
   } else if (e.keyCode === 39) {
-    player.moveRight();
+    // player.moveRight();
   } else if (e.keyCode === 65) {
     pen.color = "red";
   } else if (e.keyCode === 87) {
@@ -27,11 +27,9 @@ addEventListener("keydown", e => {
 
 //starting my game
 startButton.addEventListener("click", function() {
-  //   let startScreen = (document.querySelector(".start_screen").style.display =
-  //     "none");
-  //   document.querySelector(".game").style.display = "contents";
-  //   startScreen.hidden === true;
-
   startGame();
-  //document.querySelector(".game").show();
+});
+
+instructions.addEventListener("click", function() {
+  document.querySelector(".instructions").style.alignItems = "flex-end";
 });
