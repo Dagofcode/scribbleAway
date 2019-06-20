@@ -7,17 +7,35 @@ body {
 }
 .game-canvas {
   border: 1px solid black;
-
   cursor: url("../images/pen.png"), auto;
-  display: show;
 }
 
 .game {
   display: flex;
   justify-content: center;
+  display: none;
 }
-.start-screen canvas {
-  border: 1px solid green;
+.start_screen {
   width: 100vw;
-  height: 80vh;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.start_buttons {
+  width: 300px;
+  height: 300px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+.start {
+  /* background-image: url("../images/start.jpeg"); */
+  background-color: #008cba;
+
+  width: 50px;
+  height: 50px;
+  padding: 30px 60px;
+  display: flex;
+  justify-content: center;
 }

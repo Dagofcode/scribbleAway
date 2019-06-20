@@ -22,7 +22,7 @@ function checkCollisionPlatform() {
 }
 
 function checkCollisionPen() {
-  player.checkCollisionPen(pen);
+  if (player.color === pen.color) player.checkCollisionPen(pen);
 }
 
 function winCondition() {
@@ -45,13 +45,26 @@ function winCondition() {
     clearInterval(interval);
   }
 }
-function resetGame() {
-  pen = undefined;
-  pen = new Pen("blue");
+function checkIfReset() {
+  if (!reset) {
+    pen.draw();
+    pen.drawInk();
+  } else {
+    ctx.beginPath();
+
+    pen.previousX = [];
+    pen.previousY = [];
+    pen.x = 0;
+    pen.y = 0;
+    player.x = 0;
+    player.y = canvas.height - 200;
+  }
 }
 function changePlayerColor() {
-  let rnd = Math.floor(Math.random() * 2);
-  if (frames % 300 === 0) {
+  let rnd = Math.floor(Math.random() * 3);
+  if (frames % 500 === 0) {
     player.color = colors[rnd];
+    console.log(player.color);
+    player.changeImg();
   }
 }

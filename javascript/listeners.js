@@ -13,13 +13,25 @@ addEventListener("keydown", e => {
     player.jump();
   } else if (e.keyCode === 39) {
     player.moveRight();
-  } else if (e.keyCode === 82) {
+  } else if (e.keyCode === 65) {
     pen.color = "red";
-  } else if (e.keyCode === 66) {
+  } else if (e.keyCode === 87) {
     pen.color = "blue";
-  } else if (e.keyCode === 89) {
+  } else if (e.keyCode === 68) {
     pen.color = "yellow";
   } else if (e.keyCode === 13) {
-    resetGame();
+    if (reset) reset = false;
+    else if (!reset) reset = true;
   }
+});
+
+//starting my game
+startButton.addEventListener("click", function() {
+  let startScreen = (document.querySelector(".start_screen").style.display =
+    "none");
+  document.querySelector(".game").style.display = "contents";
+  startScreen.hidden === true;
+
+  startGame();
+  //document.querySelector(".game").show();
 });

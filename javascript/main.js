@@ -1,15 +1,10 @@
 //function that updates everything in the game
+
 function update() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   background.draw();
 
-  //drawPens();
-
-  pen.draw();
-  pen.drawInk();
-  //blackPen.drawInk();
-  //redPen.drawInk();
-
+  checkIfReset();
   player.update();
   drawPlatforms();
   checkCollisionPlatform();

@@ -44,11 +44,16 @@ class Player {
     this.xv = 0.5;
     this.friction = 0.9;
     this.frictionX = 0.2;
-    this.gravity = 1.5;
+    this.gravity = 0.3;
     this.color = "black";
     this.img = new Image();
+    this.imgYellow = new Image();
+    this.imgRed = new Image();
+    this.imgBlue = new Image();
     this.img.src = "images/stick.png";
-    this.img2 = "images/doodlebobAttack.png";
+    this.imgYellow.src = "images/stickYellow.png";
+    this.imgRed.src = "images/stickRed.png";
+    this.imgBlue.src = "images/stickBlue.png";
   }
   draw() {
     // ctx.fillStyle = "black";
@@ -66,6 +71,17 @@ class Player {
     }
     this.y += this.yv;
     this.x += this.xv;
+  }
+  changeImg() {
+    if (this.color === "red") {
+      this.img = this.imgRed;
+    } else if (this.color === "yellow") {
+      this.img = this.imgYellow;
+    } else if (this.color === "blue") {
+      this.img = this.imgBlue;
+    } else {
+      this.img = this.img;
+    }
   }
   jump() {
     if (this.jumping === false) {
@@ -197,19 +213,13 @@ class Pen {
     this.previousY = [];
     this.isPicked = false;
     this.color = color;
+    this.clear = false;
   }
-  drawPrevious() {
-    ctx.beginPath();
-    for (let i = 0; i < this.previousX.length; i++) {
-      ctx.lineTo(this.previousX[i], this.previousY[i]);
-      //ctx.stroke();
-    }
-  }
+
   draw() {
-    ctx.stroke();
+    if (!this.painting) return;
     ctx.strokeStyle = this.color;
 
-    if (!this.painting) return;
     ctx.lineWidth = this.width;
     ctx.lineCap = this.type;
 
