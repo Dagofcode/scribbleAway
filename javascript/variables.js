@@ -2,8 +2,6 @@ const canvas = document.querySelector(".game-canvas");
 ctx = canvas.getContext("2d");
 
 //button variables
-let startScreen = document.querySelector(".start_screen");
-
 let startButton = document.querySelector(".start");
 
 // variables
@@ -17,7 +15,7 @@ let animateHelper = 0;
 let door = new Image();
 let yellowImg = new Image();
 let images = {
-  door: "images/door.png",
+  door: "images/door.svg",
   yellow: "images/stickYellow.png"
 };
 

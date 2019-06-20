@@ -7,9 +7,9 @@ class Board {
     this.img = new Image();
     this.img2 = new Image();
     this.img3 = new Image();
-    this.img.src = "images/background4.png";
-    this.img2.src = "images/background5.png";
-    this.img3.src = "images/background4.png";
+    this.img.src = "images/background.png";
+    this.img2.src = "images/background.png";
+    this.img3.src = "images/background.png";
 
     this.img.onload = () => {
       this.draw();
@@ -54,6 +54,7 @@ class Player {
     this.imgYellow.src = "images/stickYellow.png";
     this.imgRed.src = "images/stickRed.png";
     this.imgBlue.src = "images/stickBlue.png";
+    this.points = 0;
   }
   draw() {
     // ctx.fillStyle = "black";

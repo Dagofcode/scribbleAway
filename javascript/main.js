@@ -18,5 +18,3 @@ function update() {
 function startGame() {
   interval = setInterval(update, 1000 / 60);
 }
-
-startGame();

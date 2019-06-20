@@ -27,10 +27,10 @@ addEventListener("keydown", e => {
 
 //starting my game
 startButton.addEventListener("click", function() {
-  let startScreen = (document.querySelector(".start_screen").style.display =
-    "none");
-  document.querySelector(".game").style.display = "contents";
-  startScreen.hidden === true;
+  //   let startScreen = (document.querySelector(".start_screen").style.display =
+  //     "none");
+  //   document.querySelector(".game").style.display = "contents";
+  //   startScreen.hidden === true;
 
   startGame();
   //document.querySelector(".game").show();
