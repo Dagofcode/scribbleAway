@@ -30,8 +30,8 @@ function checkCollisionPen() {
 function winCondition() {
   let x = canvas.width - 125;
   let y = 25;
-  let w = 60;
-  let h = 80;
+  let w = 100;
+  let h = 100;
   ctx.drawImage(door, x, y, w, h);
 
   if (
@@ -43,7 +43,8 @@ function winCondition() {
     ctx.font = "60px Arial";
     ctx.fillText(`YOU WON!`, canvas.width / 2, canvas.height / 2);
     player.points += 1;
-    clearInterval(interval);
+    reset = true;
+    player.level += 1;
   } else if (player.y > canvas.height || pen.ink < 0) {
     ctx.fillText(`YOU LOST!`, canvas.width / 2, canvas.height / 2);
     clearInterval(interval);
@@ -62,13 +63,33 @@ function checkIfReset() {
     pen.y = 0;
     player.x = 0;
     player.y = canvas.height - 200;
+    player.xv = 0.5;
+    pen.ink = 2000;
+    reset = false;
   }
 }
 function changePlayerColor() {
-  let rnd = Math.floor(Math.random() * 3);
+  let rnd = Math.floor(Math.random() * player.level);
   //   if (frames % 500 === 0) {
   //     player.color = colors[rnd];
   //     console.log(player.color);
   //     player.changeImg();
   //   }
+}
+
+function level1() {
+  checkIfReset();
+  player.update();
+  drawPlatforms();
+  checkCollisionPlatform();
+  checkCollisionPen();
+  changePlayerColor();
+  winCondition();
+}
+
+function level2() {
+  player.update();
+  drawPlatforms();
+  checkCollisionPlatform();
+  checkCollisionPen();
 }

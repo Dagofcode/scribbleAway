@@ -3,7 +3,7 @@ sc = start_canvas.getContext("2d");
 
 class Line {
   constructor(sx, sy, yv, xv, color) {
-    this.width = 15;
+    this.width = 2;
     this.startX = sx;
     this.startY = sy;
     this.x = sx;
@@ -14,8 +14,9 @@ class Line {
     this.counterY = 0.1;
     this.angle = 0;
     this.color = color;
-    sc.moveTo(this.startX, this.startY);
     this.stop = false;
+
+    sc.moveTo(this.startX, this.startY);
   }
 
   draw() {
@@ -62,8 +63,9 @@ let rx,
   dy,
   dx = 0;
 let rad = 1;
+let numberOfLines = 500;
 
-for (i = 0; i < 100; i++) {
+for (i = 0; i < numberOfLines; i++) {
   dy = Math.random() - 0.5;
   dx = Math.random() - 0.5;
   rx = Math.floor(Math.random() * start_canvas.width);
@@ -97,14 +99,14 @@ function startLoop() {
 }
 
 function drawLines() {
-  for (i = 0; i < 100; i++) {
+  for (i = 0; i < numberOfLines; i++) {
     lines[i].draw();
     lines[i].checkCollision();
   }
 }
 function stopDrawingLines() {
   if (scframes % 500 === 0) {
-    for (i = 0; i < 100; i++) {
+    for (i = 0; i < numberOfLines; i++) {
       lines[i].stop = true;
     }
   }
@@ -116,12 +118,19 @@ function drawFont() {
   gradient.addColorStop("0", " magenta");
   gradient.addColorStop("0.5", "blue");
   gradient.addColorStop("1.0", "red");
+
   // Fill with gradient
   sc.fillStyle = gradient;
   sc.fillText(
     "ScribbleAway",
     start_canvas.width / 2 - 100,
-    start_canvas.height / 2,
+    start_canvas.height / 2 - 50,
+    200
+  );
+  sc.fillText(
+    "Click To Start",
+    start_canvas.width / 2 - 100,
+    start_canvas.height / 2 + 50,
     200
   );
 }
@@ -129,15 +138,13 @@ function drawCircle() {
   let scX = start_canvas.width / 2;
   let scY = start_canvas.height / 2;
 
-  let grad = ctx.createLinearGradient(0.0, 150.0, 300.0, 150.0);
+  let grad = sc.createLinearGradient(0.0, 150.0, 300.0, 150.0);
 
   // Add colors
-  grad.addColorStop(0.0, "rgba(255, 0, 0, 1.000)");
-  grad.addColorStop(0.15, "rgba(255, 0, 255, 1.000)");
-  grad.addColorStop(0.33, "rgba(0, 0, 255, 1.000)");
-  grad.addColorStop(0.49, "rgba(0, 255, 255, 1.000)");
-  grad.addColorStop(0.67, "rgba(0, 255, 0, 1.000)");
-  grad.addColorStop(0.84, "rgba(255, 255, 0, 1.000)");
+
+  grad.addColorStop(0, "#f00"); // red
+  grad.addColorStop(0.5, "#00f"); // blue
+  grad.addColorStop(0.9, "#ff0"); // yellow
 
   if (rad < 200) {
     rad++;

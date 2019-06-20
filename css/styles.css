@@ -5,24 +5,37 @@
 body {
   background: url("../images/start_screen.jpg");
 }
+.container {
+  display: flex;
+  justify-content: center;
+}
+/* .intro {
+  width: 100vw;
+  height: 100vh;
+}
+.start-canvas {
+  width: 100vw;
+  height: 100vh;
+}
+.start_screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
 .game-canvas {
   border: 1px solid black;
   cursor: url("../images/pen.png"), auto;
+  margin: 20px;
+  /* // visibility: ; */
 }
 
 .game {
   display: flex;
   justify-content: center;
 }
-.start_screen {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
 .instructions {
-  border: 1px solid black;
   width: 500px;
   height: 100vh;
   display: flex;

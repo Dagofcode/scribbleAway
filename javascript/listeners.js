@@ -1,10 +1,12 @@
 addEventListener("mousedown", () => pen.startPosition());
 addEventListener("mouseup", () => pen.finishedPosition());
 addEventListener("mousemove", () => {
-  let rect = canvas.getBoundingClientRect();
+  var rect = canvas.getBoundingClientRect(), // abs. size of element
+    scaleX = canvas.width / rect.width, // relationship bitmap vs. element for X
+    scaleY = canvas.height / rect.height; // relationship bitmap vs. element for Y
 
-  pen.x = event.clientX - rect.left;
-  pen.y = event.clientY - rect.top;
+  pen.x = (event.clientX - rect.left) * scaleX;
+  pen.y = (event.clientY - rect.top) * scaleY;
 });
 addEventListener("keydown", e => {
   if (e.keyCode === 37) {
@@ -20,8 +22,7 @@ addEventListener("keydown", e => {
   } else if (e.keyCode === 68) {
     pen.color = "yellow";
   } else if (e.keyCode === 13) {
-    if (reset) reset = false;
-    else if (!reset) reset = true;
+    reset = true;
   }
 });
 

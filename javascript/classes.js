@@ -34,8 +34,8 @@ class Board {
 }
 class Player {
   constructor(x, y, img) {
-    this.width = 50;
-    this.height = 50;
+    this.width = 80;
+    this.height = 80;
     this.x = x;
     this.y = y;
     this.onGround = false;
@@ -50,15 +50,33 @@ class Player {
     this.imgYellow = new Image();
     this.imgRed = new Image();
     this.imgBlue = new Image();
-    this.img.src = "images/stick.png";
+    this.img.src = "images/simplespritesheet.png";
     this.imgYellow.src = "images/stickYellow.png";
     this.imgRed.src = "images/stickRed.png";
     this.imgBlue.src = "images/stickBlue.png";
     this.points = 0;
+    this.imgLoop = [0, 1, 2, 3];
+    this.animate = 0;
+    this.frames = 0;
+    this.level = 1;
   }
   draw() {
-    // ctx.fillStyle = "black";
-    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    this.frames++;
+    if (this.frames % 4 === 0) {
+      this.animate++;
+      if (this.animate === 4) this.animate = 0;
+    }
+    ctx.drawImage(
+      this.img,
+      this.imgLoop[this.animate] * 500,
+      0,
+      520,
+      450,
+      this.x,
+      this.y,
+      this.width,
+      this.height
+    );
   }
   update() {
     this.draw();
@@ -195,10 +213,12 @@ class Platform {
     this.width = 300;
     this.height = height; //canvas.height - this.y;
     this.color = "green";
+    this.img = new Image();
+    this.img.src = "images/platform.png";
   }
   draw() {
     ctx.fillStyle = this.color;
-    ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
 }
 //class to draw on the canvas
