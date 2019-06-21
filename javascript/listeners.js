@@ -10,11 +10,11 @@ addEventListener("mousemove", () => {
 });
 addEventListener("keydown", e => {
   if (e.keyCode === 37) {
-    //player.moveLeft();
+    if (isTwoPlayers) player.moveLeft();
   } else if (e.keyCode === 32) {
-    // player.jump();
+    if (isTwoPlayers) player.jump();
   } else if (e.keyCode === 39) {
-    // player.moveRight();
+    if (isTwoPlayers) player.moveRight();
   } else if (e.keyCode === 49) {
     pen.color = "black";
   } else if (e.keyCode === 50) {
@@ -41,6 +41,10 @@ tryAgain.addEventListener("click", function() {
   reset = true;
   checkIfReset();
   startGame();
+});
+twoPlayers.addEventListener("click", function() {
+  if (isTwoPlayers) isTwoPlayers = false;
+  if (!isTwoPlayers) isTwoPlayers = true;
 });
 
 instructions.addEventListener("click", function() {

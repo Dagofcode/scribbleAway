@@ -5,6 +5,7 @@ ctx = canvas.getContext("2d");
 let startButton = document.querySelector(".start");
 let instructions = document.querySelector(".instructions");
 let tryAgain = document.querySelector(".again");
+let twoPlayers = document.querySelector(".twoPlayers");
 
 // variables
 let x = 20;

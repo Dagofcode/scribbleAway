@@ -21,18 +21,13 @@ function checkCollisionPen() {
 }
 
 function winCondition() {
-  let x = canvas.width - 125;
+  let x = canvas.width - 140;
   let y = 25;
   let w = 100;
   let h = 100;
   ctx.drawImage(door, x, y, w, h);
 
-  if (
-    player.x > x &&
-    player.x + player.width < x + w &&
-    player.y > y &&
-    player.y + player.height < y + h
-  ) {
+  if (player.x > x && player.y > y && player.y + player.height < y + h) {
     ctx.font = "60px Arial";
     ctx.fillText(`LEVEL ${player.level} COMPLETE!`, 100, canvas.height / 2);
     player.points = pen.ink + 100;
