@@ -51,9 +51,9 @@ class Player {
     this.imgRed = new Image();
     this.imgBlue = new Image();
     this.img.src = "images/simplespritesheet.png";
-    this.imgYellow.src = "images/stickYellow.png";
-    this.imgRed.src = "images/stickRed.png";
-    this.imgBlue.src = "images/stickBlue.png";
+    this.imgYellow.src = "images/simplespritesheetYellow.png";
+    this.imgRed.src = "images/simplespritesheetRed.png";
+    this.imgBlue.src = "images/simplespritesheetBlue.png";
     this.points = 0;
     this.imgLoop = [0, 1, 2, 3];
     this.animate = 0;
@@ -92,7 +92,9 @@ class Player {
     this.x += this.xv;
   }
   changeImg() {
-    if (this.color === "red") {
+    if (this.color === "black") {
+      this.img = this.img;
+    } else if (this.color === "red") {
       this.img = this.imgRed;
     } else if (this.color === "yellow") {
       this.img = this.imgYellow;
@@ -130,7 +132,6 @@ class Player {
       this.jumping = false;
       return true;
     }
-
     return false;
   }
 
@@ -207,10 +208,10 @@ class Player {
   }
 }
 class Platform {
-  constructor(x, y, height) {
+  constructor(x, y, height, width) {
     this.x = x;
     this.y = y; // canvas.height / 2 + 100;
-    this.width = 300;
+    this.width = width;
     this.height = height; //canvas.height - this.y;
     this.color = "green";
     this.img = new Image();

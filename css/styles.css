@@ -9,9 +9,17 @@ body {
   display: flex;
   justify-content: center;
 }
-/* .intro {
+.intro {
   width: 100vw;
   height: 100vh;
+  background: white;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
+}
+.all-loaded {
+  opacity: 0;
 }
 .start-canvas {
   width: 100vw;
@@ -21,8 +29,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-} */
-
+}
+.middle {
+  display: none;
+}
 .game-canvas {
   border: 1px solid black;
   cursor: url("../images/pen.png"), auto;

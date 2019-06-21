@@ -10,9 +10,6 @@ class Line {
     this.y = sy;
     this.xv = xv;
     this.yv = yv;
-    this.counterX = 0.5;
-    this.counterY = 0.1;
-    this.angle = 0;
     this.color = color;
     this.stop = false;
 
@@ -47,9 +44,9 @@ class Line {
 }
 
 let this_interval;
-let line = new Line(1, 1, 0, 0);
+//let line = new Line(1, 1, 0, 0);
 let scframes = 0;
-let sccolors = ["#B1EB00", "#53BBF4", "#FF85CB", "#FF432E", "#FFAC00"];
+let sccolors = ["#B1EB00", "#53BBF4", "#FF85CB", "#FF432E", "yellow"];
 let scCounter = 0;
 let lines = [];
 let radius = 1;
@@ -63,15 +60,15 @@ let rx,
   dy,
   dx = 0;
 let rad = 1;
-let numberOfLines = 500;
+let numberOfLines = 600;
 
 for (i = 0; i < numberOfLines; i++) {
   dy = Math.random() - 0.5;
   dx = Math.random() - 0.5;
   rx = Math.floor(Math.random() * start_canvas.width);
   ry = Math.floor(Math.random() * start_canvas.height);
-  dx *= 10;
-  dy *= 10;
+  dx *= 5;
+  dy *= 5;
 
   lines.push(
     new Line(
@@ -128,7 +125,7 @@ function drawFont() {
     200
   );
   sc.fillText(
-    "Click To Start",
+    "Enter To Start",
     start_canvas.width / 2 - 100,
     start_canvas.height / 2 + 50,
     200

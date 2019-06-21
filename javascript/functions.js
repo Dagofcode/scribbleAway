@@ -1,12 +1,5 @@
 //check for button isntances
 
-function generatePlatforms() {
-  let x = canvas.width;
-  let y = canvas.height / 2 + Math.floor(Math.random() * 100);
-  let h = canvas.height - y;
-  platforms.push(new Platform(x, y, h));
-}
-
 function drawPlatforms() {
   platforms.map(platform => {
     platform.draw();
@@ -40,11 +33,17 @@ function winCondition() {
     player.y > y &&
     player.y + player.height < y + h
   ) {
-    ctx.font = "60px Arial";
-    ctx.fillText(`YOU WON!`, canvas.width / 2, canvas.height / 2);
-    player.points += 1;
+    setTimeout(function() {
+      console.log("read timeout");
+      ctx.font = "60px Arial";
+      ctx.fillText(
+        `LEVEL ${player.level} COMPLETE!`,
+        canvas.width / 2,
+        canvas.height / 2
+      );
+    }, 10000);
+    player.points = pen.ink + 100;
     reset = true;
-    player.level += 1;
   } else if (player.y > canvas.height || pen.ink < 0) {
     ctx.fillText(`YOU LOST!`, canvas.width / 2, canvas.height / 2);
     clearInterval(interval);
@@ -65,31 +64,35 @@ function checkIfReset() {
     player.y = canvas.height - 200;
     player.xv = 0.5;
     pen.ink = 2000;
+    player.level += 1;
+    if (player.level > 4) {
+      gameOver();
+    }
+
     reset = false;
+  }
+}
+function createInkBottles(x, y) {
+  if (inkCounter <= 0) return;
+  ctx.drawImage(inkBottle, x, y, 100, 100);
+
+  if (
+    player.x < x + 100 &&
+    player.y < y + 100 &&
+    (player.x + player.width > x && player.y < y + 100)
+  ) {
+    pen.ink += 500;
+    inkCounter -= 1;
   }
 }
 function changePlayerColor() {
   let rnd = Math.floor(Math.random() * player.level);
-  //   if (frames % 500 === 0) {
-  //     player.color = colors[rnd];
-  //     console.log(player.color);
-  //     player.changeImg();
-  //   }
+  if (frames % 500 === 0) {
+    player.color = colors[rnd];
+    player.changeImg();
+  }
 }
-
-function level1() {
-  checkIfReset();
-  player.update();
-  drawPlatforms();
-  checkCollisionPlatform();
-  checkCollisionPen();
-  changePlayerColor();
-  winCondition();
+function loadIntro() {
+  document.querySelector(".game").style.visivility = "hidden";
 }
-
-function level2() {
-  player.update();
-  drawPlatforms();
-  checkCollisionPlatform();
-  checkCollisionPen();
-}
+function gameOver() {}

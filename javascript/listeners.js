@@ -13,8 +13,10 @@ addEventListener("keydown", e => {
     //player.moveLeft();
   } else if (e.keyCode === 32) {
     // player.jump();
+    clearInterval(interval);
   } else if (e.keyCode === 39) {
     // player.moveRight();
+    interval = 0;
   } else if (e.keyCode === 65) {
     pen.color = "red";
   } else if (e.keyCode === 87) {
@@ -22,7 +24,8 @@ addEventListener("keydown", e => {
   } else if (e.keyCode === 68) {
     pen.color = "yellow";
   } else if (e.keyCode === 13) {
-    reset = true;
+    clearScreen();
+    //reset = true;
   }
 });
 
@@ -34,3 +37,10 @@ startButton.addEventListener("click", function() {
 instructions.addEventListener("click", function() {
   document.querySelector(".instructions_img").style.visibility = "visible";
 });
+
+function clearScreen() {
+  document.querySelector(".intro").style.opacity = "0";
+
+  document.querySelector(".intro").style.display = "none";
+  document.querySelector(".middle").style.display = "flex";
+}
