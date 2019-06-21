@@ -13,24 +13,33 @@ addEventListener("keydown", e => {
     //player.moveLeft();
   } else if (e.keyCode === 32) {
     // player.jump();
-    clearInterval(interval);
   } else if (e.keyCode === 39) {
     // player.moveRight();
-    interval = 0;
-  } else if (e.keyCode === 65) {
+  } else if (e.keyCode === 49) {
+    pen.color = "black";
+  } else if (e.keyCode === 50) {
     pen.color = "red";
-  } else if (e.keyCode === 87) {
-    pen.color = "blue";
-  } else if (e.keyCode === 68) {
+  } else if (e.keyCode === 51) {
     pen.color = "yellow";
+  } else if (e.keyCode === 52) {
+    pen.color = "blue";
   } else if (e.keyCode === 13) {
     clearScreen();
+    //interval = false;
     //reset = true;
+  } else if (e.keyCode === 80) {
+    clearInterval(interval);
+    interval = false;
   }
 });
 
 //starting my game
 startButton.addEventListener("click", function() {
+  startGame();
+});
+tryAgain.addEventListener("click", function() {
+  reset = true;
+  checkIfReset();
   startGame();
 });
 
@@ -39,8 +48,13 @@ instructions.addEventListener("click", function() {
 });
 
 function clearScreen() {
-  document.querySelector(".intro").style.opacity = "0";
+  if (switchPagesCounter === 0) {
+    document.querySelector(".intro").style.display = "none";
+    document.querySelector(".instructions").style.display = "flex";
+  } else if (switchPagesCounter === 1) {
+    document.querySelector(".instructions").style.display = "none";
+    document.querySelector(".middle").style.display = "flex";
+  }
 
-  document.querySelector(".intro").style.display = "none";
-  document.querySelector(".middle").style.display = "flex";
+  switchPagesCounter++;
 }

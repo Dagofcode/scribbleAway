@@ -33,20 +33,29 @@ function winCondition() {
     player.y > y &&
     player.y + player.height < y + h
   ) {
-    setTimeout(function() {
-      console.log("read timeout");
-      ctx.font = "60px Arial";
-      ctx.fillText(
-        `LEVEL ${player.level} COMPLETE!`,
-        canvas.width / 2,
-        canvas.height / 2
-      );
-    }, 10000);
+    ctx.font = "60px Arial";
+    ctx.fillText(`LEVEL ${player.level} COMPLETE!`, 100, canvas.height / 2);
     player.points = pen.ink + 100;
     reset = true;
+    clearInterval(interval);
+    ctx.font = "40px Arial";
+    ctx.fillStyle = colors[player.level];
+
+    ctx.fillText(
+      `Next Level we're adding color ${colors[player.level]}!`,
+      80,
+      canvas.height / 2 + 50
+    );
+    ctx.fillStyle = "green";
+
+    ctx.fillText(`Press start to continue!`, 80, canvas.height / 2 + 100);
+    player.level += 1;
+
+    interval = false;
   } else if (player.y > canvas.height || pen.ink < 0) {
     ctx.fillText(`YOU LOST!`, canvas.width / 2, canvas.height / 2);
     clearInterval(interval);
+    interval = false;
   }
 }
 function checkIfReset() {
@@ -64,7 +73,6 @@ function checkIfReset() {
     player.y = canvas.height - 200;
     player.xv = 0.5;
     pen.ink = 2000;
-    player.level += 1;
     if (player.level > 4) {
       gameOver();
     }

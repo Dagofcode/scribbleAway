@@ -5,28 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="css/styles.css" />
-    <title>Document</title>
+    <title>ScribbleAway</title>
   </head>
   <body>
     <div class="container">
       <div class="intro">
-        <canvas class="start-canvas" width="800" height="600"></canvas>
+        <div class="start_canvas">
+          <canvas class="start-canvas" width="800" height="600"></canvas>
+        </div>
+      </div>
+      <div class="instructions">
+        <img class="instructions_img" src="images/Objective.png" alt="" />
+        <h1>Enter to continue</h1>
       </div>
 
       <div class="middle">
         <div class="game">
           <canvas class="game-canvas" width="800" height="600"></canvas>
         </div>
-        <div class="instructions">
-          <div class="top">
-            <img
-              class="instructions_img"
-              src="images/instructions.jpg"
-              alt=""
-            />
+        <div class="controls">
+          <img src="images/controls.png" alt="" />
+          <div class="control-buttons">
+            <button class="btn start">Start</button>
+            <button class="btn again">Try again</button>
           </div>
-          <button class="btn start">Start</button>
-          <button class="btn instructions">Instructions</button>
         </div>
       </div>
     </div>

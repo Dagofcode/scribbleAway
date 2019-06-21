@@ -1,3 +1,12 @@
+//I am naming my canvas variable sc to not have conflicts with my
+// ctx of the other canvas.
+/***********************************
+ * for this specific file, i am naming things differently to not have conflict with my
+ * game file. Also i am creating everything in this file such as classes
+ * and functions and listeners to not mix things with other files since this is the
+ * start screen
+ ***********************************/
+
 const start_canvas = document.querySelector(".start-canvas");
 sc = start_canvas.getContext("2d");
 
@@ -17,9 +26,6 @@ class Line {
   }
 
   draw() {
-    //this.counter++;
-    //this.angle = 0.1 * this.counter;
-
     this.x += this.xv;
     this.y += this.yv;
 
@@ -44,7 +50,6 @@ class Line {
 }
 
 let this_interval;
-//let line = new Line(1, 1, 0, 0);
 let scframes = 0;
 let sccolors = ["#B1EB00", "#53BBF4", "#FF85CB", "#FF432E", "yellow"];
 let scCounter = 0;
@@ -81,9 +86,7 @@ for (i = 0; i < numberOfLines; i++) {
   );
 }
 function update() {
-  //sc.clearRect(0, 0, start_canvas.width, start_canvas.height);
   drawLines();
-  //line.draw();
   scframes++;
 
   changeColors();
@@ -151,13 +154,11 @@ function drawCircle() {
   sc.fillStyle = grad;
 
   sc.arc(scX, scY, rad, 0, Math.PI * 2, false);
-  //sc.fillStyle = "#29ABE2";
 
   sc.fill();
 }
 function changeColors() {
   if (scframes % 200 === 0) {
-    line.color = sccolors[scCounter];
     scCounter++;
     if (scCounter > 5) {
       scCounter = 0;

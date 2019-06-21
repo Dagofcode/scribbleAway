@@ -16,7 +16,7 @@ function update() {
 }
 //this function will get called once the user presses the button
 function startGame() {
-  console.log(interval);
+  audio.play();
   if (interval) return;
   interval = setInterval(update, 1000 / 60);
 }

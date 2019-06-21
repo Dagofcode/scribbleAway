@@ -50,7 +50,10 @@ class Player {
     this.imgYellow = new Image();
     this.imgRed = new Image();
     this.imgBlue = new Image();
+    this.imgBlack = new Image();
+
     this.img.src = "images/simplespritesheet.png";
+    this.imgBlack.src = "images/simplespritesheet.png";
     this.imgYellow.src = "images/simplespritesheetYellow.png";
     this.imgRed.src = "images/simplespritesheetRed.png";
     this.imgBlue.src = "images/simplespritesheetBlue.png";
@@ -92,16 +95,15 @@ class Player {
     this.x += this.xv;
   }
   changeImg() {
+    console.log(this.color);
     if (this.color === "black") {
-      this.img = this.img;
+      this.img = this.imgBlack;
     } else if (this.color === "red") {
       this.img = this.imgRed;
     } else if (this.color === "yellow") {
       this.img = this.imgYellow;
     } else if (this.color === "blue") {
       this.img = this.imgBlue;
-    } else {
-      this.img = this.img;
     }
   }
   jump() {
